@@ -1,7 +1,6 @@
 # 📊 Sales Performance Analysis Dashboard
 
-[![Live Dashboard](https://img.shields.io/badge/View_Live_Project-Web_Page-blue?style=for-the-badge&logo=google-chrome&logoColor=white)](https://saim898.github.io/sales-performance-dashboard/)
-[![Repository](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/Saim898/Sales-Performance-Dashboard)
+[![Live Dashboard](https://img.shields.io/badge/View_Live_Project-Web_Page-blue?style=for-the-badge&logo=google-chrome&logoColor=white)](https://saim898.github.io/Sales-Performance-Dashboard/)
 
 An interactive, executive-ready Business Intelligence solution designed to transform raw retail transaction data into diagnostic commercial insights. Built via an end-to-end analytics pipeline using Microsoft Power BI, this project evaluates organizational performance variables across regional domains, time-series segments, and multi-layered product category hierarchies.
 
