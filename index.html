@@ -28,6 +28,7 @@
             text-align: center;
             position: relative;
             box-sizing: border-box;
+            overflow: hidden;
         }
 
         /* Typography */
@@ -61,6 +62,7 @@
             width: 100%;
             max-width: 1000px;
             margin: 0 auto;
+            z-index: 2;
         }
 
         .dashboard-img {
@@ -75,12 +77,22 @@
             transform: scale(1.01);
         }
 
+        /* Button Action Layout Container */
+        .action-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 35px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
         /* Elegant Download Button */
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            margin-top: 35px;
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: white;
             padding: 14px 32px;
@@ -98,7 +110,18 @@
             transform: translateY(-1px);
         }
 
-        /* Project Documentation Section (Below Button) */
+        /* Secondary GitHub Button */
+        .btn-github {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.3);
+        }
+
+        .btn-github:hover {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.4);
+        }
+
+        /* Project Documentation Section (Below Buttons) */
         .documentation-box {
             margin-top: 40px;
             padding-top: 30px;
@@ -107,6 +130,8 @@
             max-width: 900px;
             margin-left: auto;
             margin-right: auto;
+            position: relative;
+            z-index: 2;
         }
 
         .documentation-box h2 {
@@ -125,55 +150,62 @@
             margin: 0 0 15px 0;
         }
 
-        /* --- 3D MOVING RUBIK'S CUBE ANIMATION --- */
-        .cube-container {
-            width: 60px;
-            height: 60px;
-            perspective: 1000px;
-            position: absolute;
-            right: 40px;
-            bottom: 40px;
+        .inline-link {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .inline-link:hover {
+            text-decoration: underline;
         }
 
-        .cube {
-            width: 100%;
-            height: 100%;
+        /* --- DATA ANALYSIS ANIMATION BACKGROUND GRAPHIC --- */
+        .analysis-bg-graphic {
             position: absolute;
-            transform-style: preserve-3d;
-            animation: rotateCube 8s infinite linear;
+            bottom: -20px;
+            right: -20px;
+            width: 280px;
+            height: 280px;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 1;
         }
 
-        .face {
+        .data-node {
             position: absolute;
-            width: 60px;
-            height: 60px;
-            border: 2px solid #0f172a;
-            box-sizing: border-box;
-            background-image: 
-                linear-gradient(to right, rgba(0,0,0,0.8) 2px, transparent 2px),
-                linear-gradient(to bottom, rgba(0,0,0,0.8) 2px, transparent 2px);
-            background-size: 20px 20px;
-            opacity: 0.9;
+            background-color: #2563eb;
+            border-radius: 50%;
+            animation: pulseNode 3s infinite ease-in-out;
         }
 
-        /* Rubik's Cube Face Colors & Positions */
-        .front  { background-color: #ef4444; transform: translateZ(30px); }
-        .back   { background-color: #f97316; transform: rotateY(180deg) translateZ(30px); }
-        .left   { background-color: #3b82f6; transform: rotateY(-90deg) translateZ(30px); }
-        .right  { background-color: #22c55e; transform: rotateY(90deg) translateZ(30px); }
-        .top    { background-color: #ffffff; transform: rotateX(90deg) translateZ(30px); }
-        .bottom { background-color: #eab308; transform: rotateX(-90deg) translateZ(30px); }
+        .node-1 { width: 14px; height: 14px; top: 40px; left: 180px; animation-delay: 0s; }
+        .node-2 { width: 18px; height: 18px; top: 110px; left: 70px; animation-delay: 0.5s; }
+        .node-3 { width: 12px; height: 12px; top: 190px; left: 140px; animation-delay: 1s; }
+        .node-4 { width: 22px; height: 22px; top: 120px; left: 210px; animation-delay: 1.5s; }
 
-        @keyframes rotateCube {
-            0%   { transform: rotateX(0deg) rotateY(0deg); }
-            100% { transform: rotateX(360deg) rotateY(360deg); }
+        .data-line {
+            position: absolute;
+            background: linear-gradient(to right, #2563eb, #1d4ed8);
+            transform-origin: left center;
+            height: 2px;
+        }
+
+        /* Mathematical connections between visualization nodes */
+        .line-1 { width: 120px; transform: rotate(33deg); top: 45px; left: 185px; }
+        .line-2 { width: 100px; transform: rotate(135deg); top: 120px; left: 80px; }
+        .line-3 { width: 110px; transform: rotate(-45deg); top: 195px; left: 145px; }
+
+        @keyframes pulseNode {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.25); opacity: 1; box-shadow: 0 0 15px rgba(37, 99, 235, 0.6); }
         }
 
         /* Responsive handling for smaller screens */
         @media (max-width: 768px) {
-            .cube-container { position: relative; right: auto; bottom: auto; margin: 30px auto 0 auto; }
             body { padding: 20px 10px; }
             .container { padding: 20px; }
+            .analysis-bg-graphic { display: none; } /* Hide decoration on tiny mobile sizes for space */
+            .action-container { flex-direction: column; align-items: stretch; }
         }
     </style>
 </head>
@@ -188,9 +220,14 @@
             <img src="dashboard-preview.png" alt="Sales Performance Dashboard Canvas View" class="dashboard-img">
         </div>
         
-        <a href="sales-performance-dashboard.pbix" class="btn">
-            <span>📥</span> Download Power BI File (.pbix)
-        </a>
+        <div class="action-container">
+            <a href="sales-performance-dashboard.pbix" class="btn">
+                <span>📥</span> Download Power BI File (.pbix)
+            </a>
+            <a href="https://github.com/Saim898/Sales-Performance-Dashboard" target="_blank" class="btn btn-github">
+                <span>💻</span> View GitHub Repository
+            </a>
+        </div>
 
         <div class="documentation-box">
             <h2>📁 Full Project Documentation & Technical Overview</h2>
@@ -201,19 +238,18 @@
                 <strong>Architecture Layout:</strong> Features independent custom time-series segmentation tracking revenue movements across seasonal spikes (March, September, November markets). Also provides categorical filters and cross-connected physical territory blocks mapping distribution across Core North American operational fields.
             </p>
             <p>
-                <em>Note to Technical Recruiters: To review the relationships, data types, and explicit DAX formulas built into this project, download the source dataset and click the file asset above to launch the report inside Power BI Desktop.</em>
+                <em>Note to Technical Recruiters: To review the relationships, schemas, and explicit data types built into this analytics deployment, you can access the full codebase via the official <a class="inline-link" href="https://github.com/Saim898/Sales-Performance-Dashboard" target="_blank">GitHub Repository Link</a> or download the file asset above to launch the report inside Microsoft Power BI Desktop.</em>
             </p>
         </div>
 
-        <div class="cube-container" title="Problem Solving Asset">
-            <div class="cube">
-                <div class="face front"></div>
-                <div class="face back"></div>
-                <div class="face left"></div>
-                <div class="face right"></div>
-                <div class="face top"></div>
-                <div class="face bottom"></div>
-            </div>
+        <div class="analysis-bg-graphic">
+            <div class="data-line line-1"></div>
+            <div class="data-line line-2"></div>
+            <div class="data-line line-3"></div>
+            <div class="data-node node-1"></div>
+            <div class="data-node node-2"></div>
+            <div class="data-node node-3"></div>
+            <div class="data-node node-4"></div>
         </div>
     </div>
 
